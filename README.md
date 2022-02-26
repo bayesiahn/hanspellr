@@ -1,6 +1,7 @@
 # hanspellr
-
-## Introduction
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/bayesiahn/hanspellr/workflows/R-CMD-check/badge.svg)](https://github.com/bayesiahn/hanspellr/actions)
+<!-- badges: end -->
 
 `hanspellr` is an R package for Korean spell checker using PNU/Narainfo Tech Korean Spell Checker (한국어 맞춤법/문법 검사기) inspired by [hanspell](https://github.com/9beach/hanspell).
 
