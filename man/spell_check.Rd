@@ -2,7 +2,7 @@
 % Please edit documentation in R/spell_check.R
 \name{spell_check}
 \alias{spell_check}
-\title{Spell checker with PNU Korean spell checker (한국어 맞춤법/문법 검사기)}
+\title{Spell checker with PNU Korean spell checker}
 \usage{
 spell_check(text, exceptions = character())
 }
@@ -15,9 +15,8 @@ spell_check(text, exceptions = character())
 a hanspell object that contains
 }
 \description{
-Spell checker with PNU Korean spell checker (한국어 맞춤법/문법 검사기)
+Spell checker with PNU Korean spell checker
 }
 \examples{
-spell_check("왠일이니!")
-spell_check("커다란 웃음으로 미안하다 말해야했었지.")
+spell_check(wrongkortextsample)
 }

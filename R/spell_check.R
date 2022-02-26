@@ -39,8 +39,7 @@ retrieve_checks <- function(text, exceptions) {
 #' @export
 #'
 #' @examples
-#' spell_check("왠일이니!")
-#' spell_check("커다란 웃음으로 미안하다 말해야했었지.")
+#' spell_check(wrongkortextsample)
 spell_check <- function(text, exceptions = character()) {
   # retrieve spell check results by splitting up a given text
   text_chunks <- split_text_by_length(text, TEXT_CHUNK_LENGTH)
