@@ -3,5 +3,6 @@
 S3method(print,hanspell)
 export("%>%")
 export(spell_check)
+export(spell_check_daum)
 exportClasses(hanspell)
 importFrom(magrittr,"%>%")
