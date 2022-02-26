@@ -14,27 +14,28 @@ hanspell <- setClass(Class = "hanspell",
 
 #' Print a hanspell object
 #'
-#' @param object hanspell object
+#' @param x hanspell object
+#' @param ... other arguments
 #'
 #' @return
 #' @export
 #'
 #' @examples
 #' print(spell_check(wrongkortextsample))
-print.hanspell <- function(object) {
+print.hanspell <- function(x, ...) {
 
 
   cat(sprintf("%sOriginal  : %s\n",
               emojifont::emoji("newspaper"),
-              object$text_original))
+              x$text_original))
   cat(sprintf("%sCorrected : %s\n",
               emojifont::emoji("white_check_mark"),
-              object$text_corrected))
+              x$text_corrected))
   cat(sprintf("%sCorrection count : %d",
               emojifont::emoji("negative_squared_cross_mark"),
-              nrow(object$checks)))
+              nrow(x$checks)))
 }
 
 setMethod(f = "show",
           signature = "hanspell",
-          definition = print.hanspell)
+          definition = function (object) print.hanspell(object))

@@ -4,10 +4,12 @@
 \alias{print.hanspell}
 \title{Print a hanspell object}
 \usage{
-\method{print}{hanspell}(object)
+\method{print}{hanspell}(x, ...)
 }
 \arguments{
-\item{object}{hanspell object}
+\item{x}{hanspell object}
+
+\item{...}{other arguments}
 }
 \value{
 
