@@ -14,8 +14,8 @@ usethis::install_github("bayesiahn/hanspellr")
 ## Examples
 
 ```r
-hanspellr::spell_check("인생 은 아름 답고 역사는 발전한다")
-hanspellr::spell_check_daum("인생 은 아름 답고 역사는 발전한다")
+hanspellr::spell_check("인생은 아름 답고 역사는 발전한다")
+hanspellr::spell_check_daum("인생은 아름 답고 역사는 발전한다")
 ```
 
 prints as
