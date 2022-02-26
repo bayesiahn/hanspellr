@@ -12,7 +12,7 @@ spell_check(text, exceptions = character())
 \item{exceptions}{words or phrases that checks contain to be exempted}
 }
 \value{
-a hanspell object that contains
+a hanspell object
 }
 \description{
 Spell checker with PNU Korean spell checker
