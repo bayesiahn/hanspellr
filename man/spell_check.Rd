@@ -19,4 +19,5 @@ Spell checker with PNU Korean spell checker (한국어 맞춤법/문법 검사�
 }
 \examples{
 spell_check("왠일이니!")
+spell_check("커다란 웃음으로 미안하다 말해야했었지.")
 }

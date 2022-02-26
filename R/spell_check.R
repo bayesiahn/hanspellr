@@ -29,7 +29,7 @@ retrieve_checks <- function(text, exceptions) {
     filter(!stringr::str_detect(errInfo.orgStr, stringr::fixed(exceptions)))
 }
 
-#' Spell checker with PNU Korean spell checker (한국어 맞춤법/문법 검사기)
+#' Spell checker with PNU Korean spell checker
 #'
 #' @param text Korean text to be checked
 #' @param exceptions words or phrases that checks contain to be exempted
@@ -38,7 +38,9 @@ retrieve_checks <- function(text, exceptions) {
 #' @return a hanspell object that contains
 #' @export
 #'
-#' @examples spell_check("왠일이니!")
+#' @examples
+#' spell_check("왠일이니!")
+#' spell_check("커다란 웃음으로 미안하다 말해야했었지.")
 spell_check <- function(text, exceptions = character()) {
   # retrieve spell check results by splitting up a given text
   text_chunks <- split_text_by_length(text, TEXT_CHUNK_LENGTH)
