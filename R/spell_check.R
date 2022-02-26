@@ -1,4 +1,5 @@
-PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
+# PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
+PNU_URL <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
 
 extract_check_json <- function(raw) {
@@ -33,7 +34,7 @@ retrieve_checks <- function(text, exceptions) {
 #' @param exceptions words or phrases that checks contain to be exempted
 #'
 #' @importFrom magrittr "%>%"
-#' @return a hanspell object that contains
+#' @return a hanspell object
 #' @export
 #'
 #' @examples
