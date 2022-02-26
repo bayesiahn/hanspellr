@@ -6,9 +6,10 @@
 #'
 #' @return
 #' @export
-hanspell <- setClass("hanspell", slots = c(text_corrected="character",
-                                           text_original="character",
-                                           checks="data.frame"))
+hanspell <- setClass(Class = "hanspell",
+                     slots = c(text_corrected="character",
+                               text_original="character",
+                               checks="data.frame"))
 
 
 #' Print a hanspell object
@@ -16,21 +17,22 @@ hanspell <- setClass("hanspell", slots = c(text_corrected="character",
 #' @param object hanspell object
 #'
 #' @return
+#' @export
 #'
 #' @examples
 #' print(spell_check(wrongkortextsample))
 print.hanspell <- function(object) {
 
 
-  cat(sprintf("%sOriginal: %s\n",
-              emojifont::emoji("page_facing_up"),
-              x$text_original))
-  cat(sprintf("%sCorrected: %s\n",
+  cat(sprintf("%sOriginal  : %s\n",
+              emojifont::emoji("newspaper"),
+              object$text_original))
+  cat(sprintf("%sCorrected : %s\n",
               emojifont::emoji("white_check_mark"),
-              x$text_corrected))
-  cat(sprintf("%sCorrection count: %d",
-              emojifont::emoji("exclamation"),
-              nrow(x$checks)))
+              object$text_corrected))
+  cat(sprintf("%sCorrection count : %d",
+              emojifont::emoji("negative_squared_cross_mark"),
+              nrow(object$checks)))
 }
 
 setMethod(f = "show",
