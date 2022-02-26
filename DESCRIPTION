@@ -1,11 +1,10 @@
 Package: hanspellr
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R package for Korean spell checker
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Young Ahn
+Maintainer: Young Ahn <bayesiahn@gmail.com>
+Description: R package for Korean spell checker
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,6 +15,7 @@ Imports:
     httr,
     jsonlite,
     magrittr,
+    methods,
     rvest,
     stringr,
     tibble,
@@ -24,3 +24,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.1.2
+Depends: 
+    R (>= 2.10)
