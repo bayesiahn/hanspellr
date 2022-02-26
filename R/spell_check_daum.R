@@ -22,7 +22,7 @@ retrieve_checks_daum <- function (txt, exceptions) {
     return (checks)
 
   checks %>%
-    filter(!stringr::str_detect(original, stringr::fixed(exceptions)))
+    dplyr::filter(!stringr::str_detect(original, paste(exceptions, collapse = "|")))
 }
 
 #' Spell checker with Daum Korean spell checker

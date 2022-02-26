@@ -14,4 +14,13 @@ test_that("spell_check", {
                "인생은 아름답고 역사는 발전한다.")
   expect_equal(spell_check("인생은 아름답고 역사는 발전한다")$text_corrected,
                "인생은 아름답고 역사는 발전한다.")
+
+  expect_equal(spell_check("인생은아름답고 역사는발전한다.")$text_corrected,
+               "인생은 아름답고 역사는 발전한다.")
+  expect_equal(spell_check("인생은아름답고 역사는발전한다.",
+                            exceptions = "인생은아름답고")$text_corrected,
+               "인생은아름답고 역사는 발전한다.")
+  expect_equal(spell_check("인생은아름답고 역사는발전한다.",
+                            exceptions = c("인생은아름답고", "역사는발전한다"))$text_corrected,
+               "인생은아름답고 역사는발전한다.")
 })
