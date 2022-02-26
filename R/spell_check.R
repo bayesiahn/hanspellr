@@ -19,7 +19,8 @@ retrieve_checks <- function(text, exceptions) {
     return (data.table::data.table())
   suppressWarnings(checks <- extract_check_json(as.character(nodes[3])) %>%
     data.table::as.data.table() %>%
-    tidyr::separate(errInfo.candWord, c("suggestion1", "suggestion2"), sep = "([|])"))
+    tidyr::separate(errInfo.candWord, c("suggestion1", "suggestion2"), sep = "([|])") %>%
+      dplyr::filter(stringr::str_length(suggestion1) != 0))
 
   # if there is no exception rule, just return
   if (length(exceptions) == 0 || exceptions == "")
