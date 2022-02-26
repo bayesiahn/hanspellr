@@ -1,10 +1,25 @@
+#' hanspell
+#'
+#' @slot text_corrected corrected text
+#' @slot text_original original text
+#' @slot checks a data.table object that provides details on checks performed
+#'
+#' @return
 #' @export
 hanspell <- setClass("hanspell", slots = c(text_corrected="character",
                                            text_original="character",
                                            checks="data.frame"))
 
-#' @export
-print.hanspell <- function(x, ...) {
+
+#' Print a hanspell object
+#'
+#' @param object hanspell object
+#'
+#' @return
+#'
+#' @examples
+#' print(spell_check(wrongkortextsample))
+print.hanspell <- function(object) {
 
 
   cat(sprintf("%sOriginal: %s\n",
@@ -17,3 +32,7 @@ print.hanspell <- function(x, ...) {
               emojifont::emoji("exclamation"),
               nrow(x$checks)))
 }
+
+setMethod(f = "show",
+          signature = "hanspell",
+          definition = print.hanspell)
