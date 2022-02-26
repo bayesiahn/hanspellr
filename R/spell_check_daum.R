@@ -41,23 +41,7 @@ spell_check_daum <- function(text, exceptions = character()) {
   text_chunks <- split_text_by_length(text, TEXT_CHUNK_LENGTH)
   checks <- do.call(rbind,lapply(text_chunks,
                                  function (chunk) retrieve_checks_daum(chunk, exceptions)))
-
-  # obtain a corrected text
-  text_corrected <- text
-  correction_summary <- ""
-  if (nrow(checks) > 0) {
-    replacement.dict <- checks %>%
-      dplyr::select(original, suggestion) %>%
-      tibble::deframe()
-    text_corrected <- stringr::str_replace_all(text, replacement.dict)
-    correction_summary <- get_correction_summary(checks$original, checks$suggestion)
-  }
-
-
-  out <- list(text_corrected = text_corrected, text_original = text,
-              correction_summary = correction_summary, checks = checks)
-  class(out) <- "hanspell"
-  out
+  text_and_checks_to_hanspell(text, checks)
 }
 
 
