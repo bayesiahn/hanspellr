@@ -18,6 +18,8 @@ hanspell
 
 \item{\code{text_original}}{original text}
 
+\item{\code{correction_summary}}{summary of corrections made}
+
 \item{\code{checks}}{a data.table object that provides details on checks performed}
 }}
 

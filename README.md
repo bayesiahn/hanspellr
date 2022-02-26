@@ -14,14 +14,26 @@ usethis::install_github("bayesiahn/hanspellr")
 ## Examples
 
 ```r
-hanspellr::spell_check("인생은 아름 답고 역사는 발전한다.")
-hanspellr::spell_check(hanspellr::wrongkortextsample)
+hanspellr::spell_check("인생 은 아름 답고 역사는 발전한다")
 ```
 
+prints as
 
+```
+📰Original  : 인생 은 아름 답고 역사는 발전한다
+✅Corrected : 인생은 아름답고 역사는 발전한다.
+❎Correction count : 3
+✏️Corrections made : 
+인생 은 -> 인생은
+아름 답고 -> 아름답고
+발전한다 -> 발전한다.
+```
+
+One can extract corrected text and summary of corrections made as follows:
 ```r
-checked <- hanspellr::spell_check("인생은 아름 답고 역사는 발전한다.")
+checked <- hanspellr::spell_check("인생 은 아름 답고 역사는 발전한다")
 checked$text_corrected
+checked$correction_summary
 ```
 
 

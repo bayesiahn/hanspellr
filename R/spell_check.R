@@ -29,6 +29,12 @@ retrieve_checks <- function(text, exceptions) {
     filter(!stringr::str_detect(errInfo.orgStr, stringr::fixed(exceptions)))
 }
 
+get_correction_summary <- function(original, corrected) {
+  corrections <- mapply(function(txt1, txt2) sprintf("%s %s %s", txt1, "->", txt2),
+         original, corrected)
+  paste0(corrections, collapse = '\n')
+}
+
 #' Spell checker with PNU Korean spell checker
 #'
 #' @param text Korean text to be checked
@@ -48,14 +54,20 @@ spell_check <- function(text, exceptions = character()) {
 
   # obtain a corrected text
   text_corrected <- text
+  correction_summary <- ""
   if (nrow(checks) > 0) {
     replacement.dict <- checks %>%
       dplyr::select(errInfo.orgStr, suggestion1) %>%
       tibble::deframe()
     text_corrected <- stringr::str_replace_all(text, replacement.dict)
+    correction_summary <- get_correction_summary(checks$errInfo.orgStr, checks$suggestion1)
   }
 
-  out <- list(text_corrected = text_corrected, text_original = text, checks = checks)
+
+  out <- list(text_corrected = text_corrected, text_original = text,
+              correction_summary = correction_summary, checks = checks)
   class(out) <- "hanspell"
   out
 }
+
+
