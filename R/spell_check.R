@@ -25,7 +25,7 @@ retrieve_checks <- function(text, exceptions) {
     return (checks)
 
   checks %>%
-    dplyr::filter(!stringr::str_detect(errInfo.orgStr, paste(exceptions, collapse = "|")))
+    dplyr::filter(!stringr::str_detect(original, paste(exceptions, collapse = "|")))
 }
 
 #' Spell checker with PNU Korean spell checker
