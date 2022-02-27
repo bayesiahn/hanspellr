@@ -18,7 +18,7 @@ retrieve_checks_daum <- function (txt, exceptions) {
                                    errortype = errortype)
 
   # if there is no exception rule, just return
-  if (length(exceptions) == 0 || exceptions == "")
+  if (length(exceptions) == 0)
     return (checks)
 
   checks %>%

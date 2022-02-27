@@ -28,7 +28,7 @@ retrieve_checks <- function(text, exceptions) {
       dplyr::filter(stringr::str_length(suggestion) != 0))
 
   # if there is no exception rule, just return
-  if (length(exceptions) == 0 || exceptions == "")
+  if (length(exceptions) == 0)
     return (checks)
 
   checks %>%
