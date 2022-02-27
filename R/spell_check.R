@@ -1,6 +1,7 @@
-# PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
-PNU_URL <- "http://164.125.7.61/speller/results"
+PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
+PNU_URL2 <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
+PNU_MAX_TIMEOUT <- 2
 
 extract_check_json <- function(raw) {
   json_loc_first <- stringr::str_locate(raw, stringr::fixed("{\"str\":\""))[1]
@@ -9,8 +10,14 @@ extract_check_json <- function(raw) {
     jsonlite::fromJSON()
 }
 
+retrieve_response <- function(text, URL) {
+  tryCatch(return (httr::POST(PNU_URL, body = list(text1 = text), encode = "form",
+                                  httr::accept_json(), httr::timeout(PNU_MAX_TIMEOUT))),
+           error = function (e) return (retrieve_response(text, PNU_URL2)))
+}
+
 retrieve_checks <- function(text, exceptions) {
-  response <- httr::POST(PNU_URL, body = list(text1 = text), encode = "form", httr::accept_json())
+  response <- retrieve_response(text, PNU_URL)
   nodes <- rvest::html_nodes(httr::content(response, as = "parsed"), "script")
   if (length(nodes) < 3)
     return (data.table::data.table())
