@@ -2,6 +2,10 @@ PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
 PNU_URL2 <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
 PNU_MAX_TIMEOUT <- 2
+is_complex_word <- function(x) stringr::str_detect(x$help, stringr::fixed(COMPLEX_WORD_ERROR_PHRASE))
+cannot_be_analyzed <- function(x) stringr::str_detect(x$help, stringr::fixed(UNANALYZABLE_PHRASE_ERROR_PHRASE))
+soft_check <- function(x) is_complex_word(x) | cannot_be_analyzed(x)
+
 
 extract_check_json <- function(raw) {
   json_loc_first <- stringr::str_locate(raw, stringr::fixed("{\"str\":\""))[1]
@@ -16,7 +20,7 @@ retrieve_response <- function(text, URL) {
            error = function (e) return (retrieve_response(text, PNU_URL2)))
 }
 
-retrieve_checks <- function(text, exceptions) {
+retrieve_checks <- function(text, exceptions, soft.check) {
   response <- retrieve_response(text, PNU_URL)
   nodes <- rvest::html_nodes(httr::content(response, as = "parsed"), "script")
   if (length(nodes) < 3)
@@ -25,6 +29,7 @@ retrieve_checks <- function(text, exceptions) {
     data.table::as.data.table() %>%
     tidyr::separate(errInfo.candWord, c("suggestion", "suggestion2"), sep = "([|])") %>%
       dplyr::rename(original = errInfo.orgStr) %>%
+      dplyr::rename(help = errInfo.help) %>%
       dplyr::filter(stringr::str_length(suggestion) != 0))
 
   # if there is no exception rule, just return
@@ -38,7 +43,8 @@ retrieve_checks <- function(text, exceptions) {
 #' Spell checker with PNU Korean spell checker
 #'
 #' @param text Korean text to be checked
-#' @param exceptions words or phrases that checks contain to be exempted
+#' @param exceptions words or phrases that checks contain to be exempted; default is `character()`
+#' @param soft.check check if polymorphemic word errors and unanalyzable phrase errors are exempted; default is `TRUE`
 #'
 #' @importFrom magrittr "%>%"
 #' @return a hanspell object
@@ -46,11 +52,12 @@ retrieve_checks <- function(text, exceptions) {
 #'
 #' @examples
 #' spell_check(wrongkortextsample)
-spell_check <- function(text, exceptions = character()) {
+spell_check <- function(text, exceptions = character(), soft.check = T) {
   # retrieve spell check results by splitting up a given text
   text_chunks <- split_text_by_length(text, TEXT_CHUNK_LENGTH)
   checks <- do.call(rbind,lapply(text_chunks,
-                                 function (chunk) retrieve_checks(chunk, exceptions)))
+                                 function (chunk)
+                                   retrieve_checks(chunk, exceptions, soft.check = soft.check)))
   text_and_checks_to_hanspell(text, checks)
 }
 

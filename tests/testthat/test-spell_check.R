@@ -1,6 +1,6 @@
-spell_check_test <- function (text, exceptions = character()) {
+spell_check_test <- function (text, exceptions = character(), soft.check = T) {
   Sys.sleep(0.5)
-  spell_check(text, exceptions = exceptions)
+  spell_check(text, exceptions = exceptions, soft.check = soft.check)
 }
 
 test_that("spell_check", {
@@ -28,4 +28,21 @@ test_that("spell_check", {
   expect_equal(spell_check_test("인생은아름답고 역사는발전한다.",
                             exceptions = c("인생은아름답고", "역사는발전한다"))$text_corrected,
                "인생은아름답고 역사는발전한다.")
+
 })
+
+test_that("spell_check soft.check", {
+  # complex words
+  expect_equal(spell_check_test("초연결지능", soft.check = T)$text_corrected, "초연결지능")
+  expect_false(spell_check_test("초연결지능", soft.check = F)$text_corrected == "초연결지능")
+  expect_equal(spell_check_test("초연결지능 생성에관여했다.", soft.check = T)$text_corrected, "초연결지능 생성에 관여했다.")
+  expect_false(spell_check_test("초연결지능 생성에관여했다.", soft.check = F)$text_corrected == "초연결지능 생성에 관여했다.")
+
+  # unanalyzable phrase
+  unanalyzable_sentence <- "함두릴레 우 엔타?"
+  expect_equal(spell_check_test(unanalyzable_sentence, soft.check = T)$text_corrected, unanalyzable_sentence)
+  expect_false(spell_check_test(unanalyzable_sentence, soft.check = F)$text_corrected == unanalyzable_sentence)
+
+})
+
+
