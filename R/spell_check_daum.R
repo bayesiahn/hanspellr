@@ -17,12 +17,7 @@ retrieve_checks_daum <- function (txt, exceptions) {
   checks <- data.table::data.table(original = original, suggestion = suggestion,
                                    errortype = errortype)
 
-  # if there is no exception rule, just return
-  if (length(exceptions) == 0)
-    return (checks)
-
-  checks %>%
-    dplyr::filter(!stringr::str_detect(original, paste(exceptions, collapse = "|")))
+  filter_checks_by_exceptions(checks, exceptions)
 }
 
 #' Spell checker with Daum Korean spell checker

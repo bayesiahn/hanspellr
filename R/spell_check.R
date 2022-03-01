@@ -7,6 +7,15 @@ cannot_be_analyzed <- function(x) stringr::str_detect(x$help, stringr::fixed(UNA
 soft_check <- function(x) is_complex_word(x) | cannot_be_analyzed(x)
 
 
+filter_checks_by_exceptions <- function (checks, exceptions) {
+  # if there is no exception rule, just return
+  if (length(exceptions) == 0)
+    return (checks)
+
+  checks %>%
+    dplyr::filter(!stringr::str_detect(original, paste(exceptions, collapse = "|")))
+}
+
 extract_check_json <- function(raw) {
   json_loc_first <- stringr::str_locate(raw, stringr::fixed("{\"str\":\""))[1]
   json_loc_last <- stringr::str_locate(raw, stringr::fixed("\"idx\":0}"))[2]
@@ -32,12 +41,16 @@ retrieve_checks <- function(text, exceptions, soft.check) {
       dplyr::rename(help = errInfo.help) %>%
       dplyr::filter(stringr::str_length(suggestion) != 0))
 
-  # if there is no exception rule, just return
-  if (length(exceptions) == 0)
-    return (checks)
+  checks <- filter_checks_by_exceptions(checks, exceptions)
 
-  checks %>%
-    dplyr::filter(!stringr::str_detect(original, paste(exceptions, collapse = "|")))
+  # perform soft check if soft checks are exempted
+  if (soft.check) {
+    checks <- checks %>%
+      dplyr::mutate(passes_soft_check = soft_check(checks)) %>%
+      dplyr::filter(!passes_soft_check)
+  }
+
+  return (checks)
 }
 
 #' Spell checker with PNU Korean spell checker
