@@ -1,7 +1,7 @@
 PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
 PNU_URL2 <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
-PNU_MAX_TIMEOUT <- 1
+PNU_MAX_TIMEOUT <- 2
 PNU_MAX_TRY <- 20
 
 is_complex_word <- function(x) stringr::str_detect(x$help, stringr::fixed(COMPLEX_WORD_ERROR_PHRASE))
