@@ -1,7 +1,9 @@
 PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
 PNU_URL2 <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
-PNU_MAX_TIMEOUT <- 2
+PNU_MAX_TIMEOUT <- 1
+PNU_MAX_TRY <- 20
+
 is_complex_word <- function(x) stringr::str_detect(x$help, stringr::fixed(COMPLEX_WORD_ERROR_PHRASE))
 cannot_be_analyzed <- function(x) stringr::str_detect(x$help, stringr::fixed(UNANALYZABLE_PHRASE_ERROR_PHRASE))
 soft_check <- function(x) is_complex_word(x) | cannot_be_analyzed(x)
@@ -23,10 +25,14 @@ extract_check_json <- function(raw) {
     jsonlite::fromJSON()
 }
 
-retrieve_response <- function(text, URL) {
-  tryCatch(return (httr::POST(PNU_URL, body = list(text1 = text), encode = "form",
+retrieve_response <- function(text, URL, try.count = 0) {
+  url.alternative <- ifelse(URL == PNU_URL, PNU_URL2, PNU_URL)
+  if (try.count > PNU_MAX_TRY)
+    stop(sprintf("hanspellr error: %s tries have been made but unsuccessful while checking:\n %s",
+                  PNU_MAX_TRY, text))
+  tryCatch(return (httr::POST(URL, body = list(text1 = text), encode = "form",
                                   httr::accept_json(), httr::timeout(PNU_MAX_TIMEOUT))),
-           error = function (e) return (retrieve_response(text, PNU_URL2)))
+           error = function (e) return (retrieve_response(text, url.alternative, try.count + 1)))
 }
 
 retrieve_checks <- function(text, exceptions, soft.check) {
