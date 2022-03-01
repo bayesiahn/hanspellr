@@ -4,12 +4,14 @@
 \alias{spell_check}
 \title{Spell checker with PNU Korean spell checker}
 \usage{
-spell_check(text, exceptions = character())
+spell_check(text, exceptions = character(), soft.check = T)
 }
 \arguments{
 \item{text}{Korean text to be checked}
 
-\item{exceptions}{words or phrases that checks contain to be exempted}
+\item{exceptions}{words or phrases that checks contain to be exempted; default is `character()`}
+
+\item{soft.check}{check if polymorphemic word errors and unanalyzable phrase errors are exempted; default is `TRUE`}
 }
 \value{
 a hanspell object
