@@ -39,7 +39,7 @@ test_that("spell_check soft.check", {
   expect_false(spell_check_test("초연결지능 생성에관여했다.", soft.check = F)$text_corrected == "초연결지능 생성에 관여했다.")
 
   # unanalyzable phrase
-  unanalyzable_sentence <- "함두릴레 우 엔타?"
+  unanalyzable_sentence <- "우 엔타?"
   expect_equal(spell_check_test(unanalyzable_sentence, soft.check = T)$text_corrected, unanalyzable_sentence)
   expect_false(spell_check_test(unanalyzable_sentence, soft.check = F)$text_corrected == unanalyzable_sentence)
 
