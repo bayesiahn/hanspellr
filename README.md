@@ -29,7 +29,7 @@ prints as
 발전한다 -> 발전한다.
 ```
 
-for PUN Korean Spell Checker and
+for PNU Korean Spell Checker and
 
 ```
 📰Original  : 인생은 아름 답고 역사는 발전한다
@@ -43,9 +43,17 @@ for Daum Korean Spell Checker.
 
 One can extract corrected text and summary of corrections made as follows:
 ```r
-checked <- hanspellr::spell_check("인생 은 아름 답고 역사는 발전한다")
+checked <- hanspellr::spell_check("인생은 아름 답고 역사는 발전한다")
 checked$text_corrected
 checked$correction_summary
+```
+
+### Soft check for PNU spell checkers
+The vanilla PNU checker corrects complex words that are unrecognizable by placing spaces between letters. Some common academic and technical vocabulary (초연결지능, hyper-connected intelligence) fail this check.  `hanspellr` disables this feature as default. To enable spell checks for complex words, set `soft.check` argument as `FALSE` like:
+
+```r
+checked <- hanspellr::spell_check("초연결지능의 영향을 받았다.", soft.check = F)
+checked$text_corrected
 ```
 
 
