@@ -3,6 +3,7 @@ PNU_URL2 <- "http://164.125.7.61/speller/results"
 TEXT_CHUNK_LENGTH <- 250
 PNU_MAX_TIMEOUT <- 10
 PNU_MAX_TRY <- 30
+PNU_SLEEP_DURATION <- 0.1
 COMPLEX_WORD_ERROR_PHRASE <-  "[복합어 오류]"
 UNANALYZABLE_PHRASE_ERROR_PHRASE <- "이 어절은 분석할 수 없으므로"
 
@@ -30,6 +31,7 @@ extract_check_json <- function(raw) {
 
 retrieve_response <- function(text, URL, try.count = 0) {
   url.alternative <- ifelse(URL == PNU_URL, PNU_URL2, PNU_URL)
+  Sys.sleep(PNU_SLEEP_DURATION)
   if (try.count > PNU_MAX_TRY)
     stop(sprintf("hanspellr error: %s tries have been made but unsuccessful while checking:\n %s",
                   PNU_MAX_TRY, text))
