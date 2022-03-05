@@ -9,6 +9,7 @@ To install this package, run
 
 ```r
 usethis::install_github("bayesiahn/hanspellr")
+# Sys.setlocale("LC_ALL", "korean") 
 ```
 
 ## Examples
