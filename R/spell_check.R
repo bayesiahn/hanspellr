@@ -4,9 +4,6 @@ TEXT_CHUNK_LENGTH <- 250
 PNU_MAX_TIMEOUT <- 10
 PNU_MAX_TRY <- 30
 PNU_SLEEP_DURATION <- 0.1
-COMPLEX_WORD_ERROR_PHRASE <-  "[복합어 오류]"
-UNANALYZABLE_PHRASE_ERROR_PHRASE <- "이 어절은 분석할 수 없으므로"
-
 
 is_complex_word <- function(x) stringr::str_detect(x$help, stringr::fixed(COMPLEX_WORD_ERROR_PHRASE))
 cannot_be_analyzed <- function(x) stringr::str_detect(x$help, stringr::fixed(UNANALYZABLE_PHRASE_ERROR_PHRASE))
