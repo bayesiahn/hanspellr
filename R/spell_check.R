@@ -1,5 +1,5 @@
 PNU_URL <- "http://speller.cs.pusan.ac.kr/results"
-PNU_URL2 <- "http://164.125.7.61/speller/results"
+PNU_URL2 <- PNU_URL # "http://164.125.7.61/speller/results" is faulty
 TEXT_CHUNK_LENGTH <- 250
 PNU_MAX_TIMEOUT <- 10
 PNU_MAX_TRY <- 30
